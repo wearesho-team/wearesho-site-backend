@@ -1,5 +1,9 @@
 # Callback Hunter integration for Moneyboom (back-end)
 ## Public API
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/wearesho-team/moneyboom-ch-backend/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/wearesho-team/moneyboom-ch-backend/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/wearesho-team/moneyboom-ch-backend/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/wearesho-team/moneyboom-ch-backend/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/wearesho-team/moneyboom-ch-backend/badges/build.png?b=master)](https://scrutinizer-ci.com/g/wearesho-team/moneyboom-ch-backend/build-status/master)
+
 This API will be used by [frontend](https://github.com/wearesho-team/moneyboom-ch-frontend)
 ### [POST /callback] Requesting call
 Body
