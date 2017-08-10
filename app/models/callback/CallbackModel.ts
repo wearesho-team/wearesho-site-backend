@@ -15,7 +15,7 @@ export class CallbackModel extends model<CallbackModelInterface>('Callback', cal
         return this._id.toHexString();
     }
 
-    static createModel(name: string, phone: string, status: CallbackEnum = CallbackEnum.default): Promise<CallbackModelInterface> {
+    static createModel(name: string, phone: string, status: CallbackEnum = CallbackEnum.form): Promise<CallbackModelInterface> {
         return CallbackModel.create({
             name, phone, status,
             time: new Date(),

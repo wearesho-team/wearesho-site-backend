@@ -38,7 +38,7 @@ Invalid name
 List of statuses:
 ```typescript
 export enum CallbackEnum {
-    default = 'is-default',
+    form = 'is-default',
     calling = 'is-calling',
     finish = 'is-calling-success',
     noLines = 'is-no-lines',
