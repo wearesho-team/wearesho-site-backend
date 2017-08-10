@@ -1,0 +1,20 @@
+# Config for scrutinizer-ci.com
+checks:
+  javascript: true
+
+filter:
+  excluded_paths:
+    - tests/*
+
+build:
+  tests:
+    override:
+      -
+        command: npm run test
+        coverage:
+          file: 'tests/output/clover.xml'
+          formet: 'clover'
+
+  environment:
+    postgresql: false
+    redis: false
