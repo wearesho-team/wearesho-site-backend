@@ -15,9 +15,11 @@ mongoose.connect(config.Config.url, {
 const app: express.Application = express();
 const port: number = process.env.PORT ? Number(process.env.PORT) : 3000;
 
+app.use(require('cors')());
+
 app.use(require('body-parser').json({type: '*/*'}));
 app.use('/callback', CallbackController);
 
-app.listen(port, () => {});
+app.listen(port);
 
 export default app;
