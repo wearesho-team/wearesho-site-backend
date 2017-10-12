@@ -1,11 +1,9 @@
-# Callback Hunter integration for Moneyboom (back-end)
+# Back-end for [Wearesho Site](https://github.com/wearesho-team/wearesho-site)
 ## Public API
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/wearesho-team/moneyboom-ch-backend/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/wearesho-team/moneyboom-ch-backend/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/wearesho-team/moneyboom-ch-backend/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/wearesho-team/moneyboom-ch-backend/?branch=master)
-[![Build Status](https://scrutinizer-ci.com/g/wearesho-team/moneyboom-ch-backend/badges/build.png?b=master)](https://scrutinizer-ci.com/g/wearesho-team/moneyboom-ch-backend/build-status/master)
+[![Code Coverage](https://scrutinizer-ci.com/g/wearesho-team/wearesho-site-backend/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/wearesho-team/wearesho-site-backend/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/wearesho-team/wearesho-site-backend/badges/build.png?b=master)](https://scrutinizer-ci.com/g/wearesho-team/wearesho-site-backend/build-status/master)
 
-This API will be used by [frontend](https://github.com/wearesho-team/moneyboom-ch-frontend)
-### [POST /callback] Requesting call
+### [POST /email] Sending email
 Body
 ```json
 {

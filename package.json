@@ -1,8 +1,9 @@
 {
-  "name": "moneyboom-ch-backend",
+  "name": "wearesho-site-backend",
   "version": "1.0.0",
-  "description": "Callback hunter integration for MoneyBOOM",
-  "main": "index.js",
+  "description": "Backend for Wearesho Studio Site",
+  "main": "build/server.js",
+  "repository": "git@github.com:wearesho-team/wearesho-site-backend.git",
   "scripts": {
     "test": "./node_modules/.bin/nyc mocha -r ts-node/register -r source-map-support/register tests/*-specs.ts",
     "prestart": "tsc --rootDir app --outDir build && babel build --out-dir build",
@@ -11,15 +12,15 @@
   "author": "Alexander Letnikow",
   "license": "MIT",
   "dependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-polyfill": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "body-parser": "^1.17.2",
     "cors": "^2.8.4",
     "express": "^4.15.4",
     "mongodb": "^2.2.31",
-    "mongoose": "^4.11.6",
-    "typescript": "^2.4.2"
+    "mongoose": "^4.11.10",
+    "typescript": "^2.5.2"
   },
   "devDependencies": {
     "@types/mongodb": "^2.2.9",
