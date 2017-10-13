@@ -4,14 +4,6 @@ import * as express from 'express';
 
 import {CallbackController} from './controllers';
 
-const config = require('./config');
-
-const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
-mongoose.connect(config.Config.url, {
-    useMongoClient: true,
-});
-
 const app: express.Application = express();
 const port: number = process.env.PORT ? Number(process.env.PORT) : 3000;
 
