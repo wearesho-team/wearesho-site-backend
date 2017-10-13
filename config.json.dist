@@ -1,4 +1,0 @@
-{
-  "url": "mongodb://username:password@host:49122/database",
-  "recaptcha": "google-recaptcha-server-key"
-}

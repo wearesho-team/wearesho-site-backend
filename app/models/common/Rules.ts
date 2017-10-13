@@ -9,9 +9,10 @@ export const NameRange = {
 };
 
 export const phonePattern = new RegExp(`^\\d{${PhoneRange.min},${PhoneRange.max}}$`);
-export const namePattern = new RegExp(`^[\sa-zA-ZА-Яа-яЄЇІєїіыЫёЁъЪ'\\-]{${NameRange.min},${NameRange.max}}$`);
+export const namePattern = new RegExp(`^[\\sa-zA-ZА-Яа-яЄЇІєїіыЫёЁъЪ'\\-]{${NameRange.min},${NameRange.max}}$`);
+export const timePattern = /^([0-2][0-4]|[0-1][0-9])\:[0-5][0-9]$/;
 
-export const TimeDefaults = {
-    from: "09:00",
-    to: "18:00"
-};
+export enum Languages {
+    en = "en",
+    ru = "ru"
+}

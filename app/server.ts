@@ -1,5 +1,8 @@
 import 'babel-polyfill';
 
+import "./translations/en";
+import "./translations/ru";
+
 import * as express from 'express';
 
 import {CallbackController} from './controllers';

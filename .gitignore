@@ -1,7 +1,6 @@
 .idea/
 npm-debug.log
 build/
-config.json
 node_modules
 tests/*-specs.js
 app/**/*.js

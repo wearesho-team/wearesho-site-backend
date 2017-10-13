@@ -1,8 +1,18 @@
-import {IsDefined, IsEmail, IsNotEmpty, Matches, validate, ValidationError, ValidationOptions} from "class-validator";
+import {
+    IsDefined,
+    IsEmail,
+    IsNotEmpty,
+    Matches,
+    validate,
+    ValidationError,
+    ValidationOptions
+} from "class-validator";
+import * as translate from "counterpart";
+
+import {namePattern, phonePattern, timePattern} from "./common/Rules";
 
 import {CallbackModelInterface} from "../interfaces/CallbackModelInterface";
 import {ModelError} from "./ModelError";
-import {namePattern, NameRange, phonePattern, TimeDefaults} from "./common/Rules";
 
 export class CallbackModel implements CallbackModelInterface {
     constructor(props: CallbackModelInterface) {
@@ -10,53 +20,59 @@ export class CallbackModel implements CallbackModelInterface {
     }
 
     @Matches(phonePattern, {
-        message: "Некорректный телефон",
+        message: "incorrect.phone"
     })
     @IsDefined({
-        message: "Обязательно для заполнения",
+        message: "empty"
     })
     @IsNotEmpty({
-        message: "Обязательно для заполнения",
+        message: "empty",
     })
     public phone: string;
 
     @IsEmail({}, {
-        message: "Некорректный E-Mail",
+        message: "incorrect.mail",
     })
     @IsDefined({
-        message: "Обязательно для заполнения",
+        message: "empty",
     })
     @IsNotEmpty({
-        message: "Обязательно для заполнения",
+        message: "empty",
     })
     public mail: string;
 
     @Matches(namePattern, {
-        message: `Только латиница или кириллица длинной от ${NameRange.min} до ${NameRange.max} символов`,
+        message: "incorrect.name",
     })
     @IsDefined({
-        message: "Обязательно для заполнения",
+        message: "empty",
     })
     @IsNotEmpty({
-        message: "Обязательно для заполнения",
+        message: "empty",
     })
     public name: string;
 
+    @Matches(timePattern, {
+        message: "incorrect.time",
+    })
     @IsDefined({
-        message: "Обязательно для заполнения",
+        message: "empty",
     })
     @IsNotEmpty({
-        message: "Обязательно для заполнения",
+        message: "empty",
     })
-    public from: string = TimeDefaults.from;
+    public from: string;
 
+    @Matches(timePattern, {
+        message: "incorrect.time",
+    })
     @IsDefined({
-        message: "Обязательно для заполнения",
+        message: "empty",
     })
     @IsNotEmpty({
-        message: "Обязательно для заполнения",
+        message: "empty",
     })
-    public to: string = TimeDefaults.to;
+    public to: string;
 
     public attributes(): string [] {
         return ["name", "phone", "mail", "to", "from"];
@@ -74,7 +90,7 @@ export class CallbackModel implements CallbackModelInterface {
                 return {
                     attribute: error.property,
                     details: Object.keys(error.constraints)
-                        .map((key: string) => error.constraints[key])
+                        .map((key: string) => translate(error.constraints[key]))
                         .join(", "),
                 };
             });
