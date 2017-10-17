@@ -1,6 +1,4 @@
-export interface ConfigInterface {
-    "botApiKey": string;
-    "chatId": string;
-}
+import {ConfigTest} from "../config/config.test";
+import {ConfigProd} from "../config/config.prod";
 
-export const Config = require('../config.json') as ConfigInterface;
+export const Config = process.env.NODE_ENV === "test" ? ConfigTest : ConfigProd;
