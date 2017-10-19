@@ -1,14 +1,4 @@
-export interface ConfigInterface {
-    url: string
-}
+import {ConfigTest} from "../config/config.test";
+import {ConfigProd} from "../config/config.prod";
 
-let config = require('../config.json');
-if (!config) {
-    config = {
-        url: "mongodb://127.0.0.1:27017"
-    } as ConfigInterface;
-} else {
-    config = config as ConfigInterface;
-}
-
-export const Config = <ConfigInterface>config;
+export const Config = process.env.NODE_ENV === "test" ? ConfigTest : ConfigProd;

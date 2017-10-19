@@ -1,1 +1,1 @@
-export * from './callbackController';
+export * from './CallbackController';
