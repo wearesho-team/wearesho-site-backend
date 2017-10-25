@@ -11,14 +11,14 @@ const router: Router = Router();
 
 router.post('/', async (request: Request, response: Response) => {
     const {body, headers} = request;
-    const lang = headers["app-language"] as string;
+    const lang = headers["accept-language"] as string;
     translate.setLocale(lang);
 
     const model = new CallbackModel(body);
     const result: ModelError[] = await model.validate();
 
     if (result.length > 0) {
-        response.status(500).send(result).end();
+        response.status(400).send(result).end();
         return;
     }
 

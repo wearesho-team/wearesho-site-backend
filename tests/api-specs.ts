@@ -8,7 +8,7 @@ import {server, port} from "../app/server";
 
 axios.defaults.baseURL = `http://localhost:${port}`;
 axios.defaults.timeout = 5000;
-axios.defaults.headers.common["app-language"] = Languages.ru;
+axios.defaults.headers["accept-language"] = Languages.ru;
 
 describe("Callback controller", () => {
     const ValidData = {
@@ -35,12 +35,12 @@ describe("Callback controller", () => {
         expect((await axios.post("/callback", ValidData)).status).to.equal(200);
     });
 
-    it("Should return status 500 on fail validation", async () => {
+    it("Should return status 400 on fail validation", async () => {
         try {
             await axios.post("/callback", InvalidData)
         }
         catch (error) {
-            expect(error.response.status).to.equal(500);
+            expect(error.response.status).to.equal(400);
         }
     });
 
