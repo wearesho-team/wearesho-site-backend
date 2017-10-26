@@ -5,9 +5,11 @@
   "main": "build/server.js",
   "repository": "git@github.com:wearesho-team/wearesho-site-backend.git",
   "scripts": {
+    "api-keys": "node -e \"require('fs').writeFileSync('app/apiKeys.ts', require('fs').readFileSync('app/apiKeysTemplate.ts'));\"",
     "test": "cross-env NODE_ENV=test ./node_modules/.bin/nyc mocha -r ts-node/register -r source-map-support/register tests/*-specs.ts",
     "prestart": "tsc --rootDir app --outDir build && babel build --out-dir build",
-    "start": "cross-env NODE_ENV=prod node build/server.js"
+    "start": "node build/server.js",
+    "start-dev": "cross-env NODE_ENV=test npm run start"
   },
   "author": "Alexander Letnikow",
   "license": "MIT",
