@@ -1,4 +1,4 @@
-export const apiKeys = {
+export const EnvConfig = {
     botApiKey: "",
     chatId: ""
 };

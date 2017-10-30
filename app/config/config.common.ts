@@ -1,4 +1,4 @@
-import {apiKeys} from "../apiKeys";
+import {EnvConfig} from "../env.config";
 
 export interface ConfigInterface {
     botApiKey: string;
@@ -6,5 +6,5 @@ export interface ConfigInterface {
 }
 
 export const ConfigCommon: ConfigInterface =  {
-    ...apiKeys
+    ...EnvConfig
 };
