@@ -5,3 +5,4 @@ node_modules
 tests/*-specs.js
 app/**/*.js
 .nyc_output
+/app/env.config.ts

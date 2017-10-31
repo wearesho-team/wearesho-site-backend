@@ -1,24 +1,28 @@
 import {Router, Request, Response} from 'express';
 import * as translate from "counterpart";
-import {Config} from "../config";
-
 import * as TeleBot from "telebot";
+
+import {Config} from "../config";
 
 import {CallbackModel} from "../models";
 import {ModelError} from "../models/ModelError";
+import {Languages} from "../models/common/Rules";
 
 const router: Router = Router();
 
-router.post('/', async (request: Request, response: Response) => {
+router.post('/', async (request: Request, response: Response): Promise<void> => {
     const {body, headers} = request;
-    const lang = headers["app-language"] as string;
-    translate.setLocale(lang);
+    const lang = headers["accept-language"] as string;
+
+    Languages.hasOwnProperty(lang)
+        ? translate.setLocale(lang)
+        : translate.setLocale(Languages.ru);
 
     const model = new CallbackModel(body);
     const result: ModelError[] = await model.validate();
 
     if (result.length > 0) {
-        response.status(500).send(result).end();
+        response.status(400).send(result).end();
         return;
     }
 
@@ -28,13 +32,14 @@ router.post('/', async (request: Request, response: Response) => {
         `Телефон: ${model.phone}\n` +
         `Звонить с ${model.from} до ${model.to}`;
 
-    const bot = new TeleBot(Config.botApiKey);
     try {
+        const bot = new TeleBot(Config.botApiKey);
         await bot.sendMessage(Config.chatId, message);
-        response.status(200).send("OK").end();
+        response.status(200).end();
     }
-    catch ({error_code, description, code}) {
-        response.status(error_code).send(description).end();
+    catch (error) {
+        console.error(error.description || error.message);
+        response.status(500).end();
     }
 });
 
