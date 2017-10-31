@@ -16,5 +16,6 @@ app.use(require('body-parser').json({type: '*/*'}));
 app.use('/callback', CallbackController);
 
 export const server = app.listen(port);
+console.log(`Running on http://localhost:${port}`);
 
 export default app;

@@ -1,4 +1,5 @@
-import {ConfigTest} from "./config/config.test";
-import {ConfigProd} from "./config/config.prod";
+import {EnvConfig} from "./env.config";
 
-export const Config = process.env.NODE_ENV === "test" ? ConfigTest : ConfigProd;
+export const Config = {
+    ...EnvConfig,
+};
