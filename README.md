@@ -3,7 +3,7 @@
 ## Docker
 ### Building docker container
 ```bash
-docker build -t wearesho-team/wearesho-site-backend . --no-cache --build-arg bot_api_key=BOT_API_KEY --build-arg chat_id=CHAT_ID
+docker build -t wearesho-team/wearesho-site-backend . --no-cache --rm --build-arg bot_api_key=BOT_API_KEY --build-arg chat_id=CHAT_ID
 ```
 Replace BOT_API_KEY and CHAT_ID with your own values.  
 *Tests will be run after build*
