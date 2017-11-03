@@ -30,16 +30,7 @@ export class CallbackModel implements CallbackModelInterface {
     })
     public phone: string;
 
-    @IsEmail({}, {
-        message: "incorrect.mail",
-    })
-    @IsDefined({
-        message: "empty",
-    })
-    @IsNotEmpty({
-        message: "empty",
-    })
-    public mail: string;
+    public comment: string;
 
     @Matches(namePattern, {
         message: "incorrect.name",
@@ -75,7 +66,7 @@ export class CallbackModel implements CallbackModelInterface {
     public to: string;
 
     public attributes(): string [] {
-        return ["name", "phone", "mail", "to", "from"];
+        return ["name", "phone", "comment", "to", "from"];
     }
 
     public async validate(options: ValidationOptions = {}): Promise<ModelError[]> {

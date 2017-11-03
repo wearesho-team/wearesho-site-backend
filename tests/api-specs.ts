@@ -14,7 +14,6 @@ describe("Callback controller", () => {
     const ValidData = {
         name: "Name",
         phone: "12345678910",
-        mail: "mail@mail.com",
         from: "12:00",
         to: "15:00"
     };
@@ -22,7 +21,6 @@ describe("Callback controller", () => {
     const InvalidData = {
         name: "N",
         phone: "1234",
-        mail: "mailmail.com",
         from: "12:69",
         to: "25:00"
     };
