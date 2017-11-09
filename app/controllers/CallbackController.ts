@@ -28,9 +28,10 @@ router.post('/', async (request: Request, response: Response): Promise<void> => 
 
     const message = "Предложение к сотрудничеству\n" +
         `Имя: ${model.name}\n` +
-        `Почта: ${model.mail}\n` +
         `Телефон: ${model.phone}\n` +
-        `Звонить с ${model.from} до ${model.to}`;
+        `Звонить с ${model.from} до ${model.to}` +
+        `Коментарий: ${model.comment}\n` +
+        `Язык браузера пользователя: ${translate.getLocale()}`;
 
     try {
         const bot = new TeleBot(Config.botApiKey);
