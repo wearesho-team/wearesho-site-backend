@@ -31,7 +31,8 @@ router.post('/', async (request: Request, response: Response): Promise<void> => 
         `Телефон: ${model.phone}\n` +
         `Звонить с ${model.from} до ${model.to}\n` +
         model.comment ? `Коментарий: ${model.comment}\n`: "" +
-        `Язык: ${translate.getLocale()}`;
+        `Язык: ${translate.getLocale()}\n` +
+        `Часовой пояс: ${model.timeZone}`;
 
     try {
         const bot = new TeleBot(Config.botApiKey);

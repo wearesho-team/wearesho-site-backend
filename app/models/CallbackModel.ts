@@ -65,6 +65,8 @@ export class CallbackModel implements CallbackModelInterface {
     })
     public to: string;
 
+    public timeZone: string;
+
     public attributes(): string [] {
         return ["name", "phone", "comment", "to", "from"];
     }

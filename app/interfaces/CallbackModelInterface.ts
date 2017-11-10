@@ -5,4 +5,5 @@ export interface CallbackModelInterface {
     to: string;
     from: string;
     attributes?(): string [];
+    timeZone: string;
 }
