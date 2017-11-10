@@ -1,17 +1,17 @@
-import {Router, Request, Response} from 'express';
+import { Router, Request, Response } from 'express';
 import * as translate from "counterpart";
 import * as TeleBot from "telebot";
 
-import {Config} from "../config";
+import { Config } from "../config";
 
-import {CallbackModel} from "../models";
-import {ModelError} from "../models/ModelError";
-import {Languages} from "../models/common/Rules";
+import { CallbackModel } from "../models";
+import { ModelError } from "../models/ModelError";
+import { Languages } from "../models/common/Rules";
 
 const router: Router = Router();
 
 router.post('/', async (request: Request, response: Response): Promise<void> => {
-    const {body, headers} = request;
+    const { body, headers } = request;
     const lang = headers["accept-language"] as string;
 
     Languages.hasOwnProperty(lang)
@@ -30,7 +30,7 @@ router.post('/', async (request: Request, response: Response): Promise<void> => 
         `Имя: ${model.name}\n` +
         `Телефон: ${model.phone}\n` +
         `Звонить с ${model.from} до ${model.to}\n` +
-        model.comment ? `Коментарий: ${model.comment}\n`: "" +
+        (model.comment ? `Коментарий: ${model.comment}\n` : "") +
         `Язык: ${translate.getLocale()}\n` +
         `Часовой пояс: ${model.timeZone}`;
 
