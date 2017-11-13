@@ -19,9 +19,6 @@ export class CallbackModel implements CallbackModelInterface {
         Object.assign(this, props);
     }
 
-    @Matches(phonePattern, {
-        message: "incorrect.phone"
-    })
     @IsDefined({
         message: "empty"
     })
