@@ -5,14 +5,20 @@ import "./translations/ru";
 
 import * as express from 'express';
 
-import {CallbackController} from './controllers';
+import { CallbackController } from './controllers';
 
 const app: express.Application = express();
 export const port: number = process.env.PORT ? Number(process.env.PORT) : 3000;
 
-app.use(require('cors')());
+const meta = require("../../meta.json");
 
-app.use(require('body-parser').json({type: '*/*'}));
+app.use(require('cors')());
+app.use(require('body-parser').json({ type: '*/*' }));
+
+app.get("/", (request, response: express.Response) => {
+    response.json(meta).send();
+});
+
 app.use('/callback', CallbackController);
 
 export const server = app.listen(port);

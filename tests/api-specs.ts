@@ -1,14 +1,25 @@
 import * as translate from "counterpart";
-import axios from "axios";
-import {expect} from "chai";
+import axios, { AxiosResponse } from "axios";
+import { expect } from "chai";
 
-import {Languages} from "../app/models/common/Rules";
+import { Languages } from "../app/models/common/Rules";
 import "../app/server";
-import {server, port} from "../app/server";
+import { server, port } from "../app/server";
 
 axios.defaults.baseURL = `http://localhost:${port}`;
 axios.defaults.timeout = 5000;
 axios.defaults.headers["accept-language"] = Languages.ru;
+
+describe("Index", () => {
+    it("Should return name and version on GET /", async () => {
+        const response: AxiosResponse<{ name?: string, version?: string }> = await axios.get("/");
+        expect(response.status).to.be.equal(200);
+        expect(response.data).to.have.property('name');
+        expect(response.data).to.have.property('version');
+        expect(response.data.version).to.be.string;
+        expect(response.data.name).to.be.equal('wearesho-site-backend');
+    });
+})
 
 describe("Callback controller", () => {
     const ValidData = {
@@ -46,5 +57,4 @@ describe("Callback controller", () => {
         expect((await axios.post("/callback", ValidData)).status).to.equal(200);
         expect(translate.getLocale()).to.equal(Languages.ru);
     });
-
 });

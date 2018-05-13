@@ -1,7 +1,6 @@
 import { Router, Request, Response } from 'express';
 import * as translate from "counterpart";
 import * as TeleBot from "telebot";
-
 import { Config } from "../config";
 
 import { CallbackModel } from "../models";
