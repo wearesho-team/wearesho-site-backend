@@ -9,10 +9,10 @@ import {
 } from "class-validator";
 import * as translate from "counterpart";
 
-import {namePattern, phonePattern, timePattern} from "./common/Rules";
+import { namePattern, phonePattern, timePattern } from "./common/Rules";
 
-import {CallbackModelInterface} from "../interfaces/CallbackModelInterface";
-import {ModelError} from "./ModelError";
+import { CallbackModelInterface } from "../interfaces/CallbackModelInterface";
+import { ModelError } from "./ModelError";
 
 export class CallbackModel implements CallbackModelInterface {
     constructor(props: CallbackModelInterface) {
@@ -25,9 +25,9 @@ export class CallbackModel implements CallbackModelInterface {
     @IsNotEmpty({
         message: "empty",
     })
-    public phone: string;
+    public phone: string = "";
 
-    public comment: string;
+    public comment: string = "";
 
     @Matches(namePattern, {
         message: "incorrect.name",
@@ -38,7 +38,7 @@ export class CallbackModel implements CallbackModelInterface {
     @IsNotEmpty({
         message: "empty",
     })
-    public name: string;
+    public name: string = "";
 
     @Matches(timePattern, {
         message: "incorrect.time",
@@ -49,7 +49,7 @@ export class CallbackModel implements CallbackModelInterface {
     @IsNotEmpty({
         message: "empty",
     })
-    public from: string;
+    public from: string = "";
 
     @Matches(timePattern, {
         message: "incorrect.time",
@@ -60,11 +60,11 @@ export class CallbackModel implements CallbackModelInterface {
     @IsNotEmpty({
         message: "empty",
     })
-    public to: string;
+    public to: string = "";
 
-    public timeZone: string;
+    public timeZone: string = "";
 
-    public attributes(): string [] {
+    public attributes(): string[] {
         return ["name", "phone", "comment", "to", "from"];
     }
 
