@@ -2,21 +2,25 @@
 
 pipeline {
     agent any
-
+    
     environment {
         NPM_AUTH_TOKEN = credentials('NPM_AUTH_TOKEN')
-        DOCKER_USER = credentials('DOCKER_USER')
-        DOCKER_PASSWORD = credentials('DOCKER_PASSWORD')
-        DEPLOYER_SECRET = credentials('DEPLOYER_SECRET')
+	    AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
     }
 
     stages {
         stage('Releasing') {
             steps {
-                sh 'builder --config=meta.json --args=bot_api_key --args=chat_id > deploy.json'
-                sh 'curl -X POST -d @./deploy.json --header "Content-Type:application/json" --header "X-Authorization:$DEPLOYER_SECRET" $DEPLOYER_URL --fail'
-                sh 'telegram-release-notify --token=$TELEGRAM_TOKEN --recipient=$TELEGRAM_RECIPIENT --file=deploy.json'
+                sh 'builder --config=meta.json --args=bot_api_key --args=chat_id --to=deploy.json'
+                sh 'telegram-release-notify --token=$TELEGRAM_TOKEN --recipient=$TELEGRAM_RECIPIENT --file=deploy.json --comment="$(git log --format=%B -n 1)"'
             }
+        }
+    }
+
+    post {
+        failure {
+            sh 'telegram-release-notify --token=$TELEGRAM_TOKEN --recipient=$TELEGRAM_RECIPIENT --file=meta.json --fail --comment="$(git log --format=%B -n 1)"'
         }
     }
 }
