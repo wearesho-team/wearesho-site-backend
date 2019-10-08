@@ -4,14 +4,14 @@ import * as TeleBot from "telebot";
 import { Config } from "../config";
 
 import { CallbackModel } from "../models";
-import { ModelError } from "../models/ModelError";
-import { Languages } from "../models/common/Rules";
+import { ModelError } from "../models";
+import { Languages } from "../models/common";
 
 const router: Router = Router();
 
 router.post('/', async (request: Request, response: Response): Promise<void> => {
     const { body, headers } = request;
-    const lang = headers["accept-language"] as string;
+    const lang = headers[ "accept-language" ] as string;
 
     Languages.hasOwnProperty(lang)
         ? translate.setLocale(lang)
@@ -33,12 +33,19 @@ router.post('/', async (request: Request, response: Response): Promise<void> => 
         `Язык: ${translate.getLocale()}\n` +
         `Часовой пояс: ${model.timeZone}`;
 
+    if (("string" !== typeof Config.botApiKey)
+        || ("string" !== typeof Config.chatId)
+    ) {
+        console.log(message);
+        response.status(503).end();
+        return;
+    }
+
     try {
         const bot = new TeleBot(Config.botApiKey);
         await bot.sendMessage(Config.chatId, message);
         response.status(200).end();
-    }
-    catch (error) {
+    } catch (error) {
         console.error(error.description || error.message);
         response.status(500).end();
     }

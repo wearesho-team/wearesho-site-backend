@@ -1,0 +1,40 @@
+version: 0.2
+
+env:
+  variables:
+    AWS_DEFAULT_REGION: "eu-central-1"
+
+phases:
+  install:
+    runtime-versions:
+      docker: 18
+    commands:
+      - pip install --upgrade awscli
+  pre_build:
+    commands:
+      - AWS_ACCOUNT_ID=$(aws sts get-caller-identity | jq -r '.Account')
+      - DOCKER_REGISTRY=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+      - echo Logging in to Amazon ECR $DOCKER_REGISTRY ...
+      - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+      - IMAGE_REPOSITORY=$DOCKER_REGISTRY/$(jq -r '.name' < meta.json); IMAGE_TAG=$(jq -r '.version' < meta.json);
+      - echo Inspecting registry manifest ...
+      - |
+        if DOCKER_CLI_EXPERIMENTAL=enabled docker manifest inspect $IMAGE_REPOSITORY:$IMAGE_TAG > /dev/null; then
+          echo "Manifest exist. Cancelling..."
+          aws codebuild stop-build --id ${CODEBUILD_BUILD_ID}
+        fi
+  build:
+    commands:
+      - echo Build $IMAGE_REPOSITORY:$IMAGE_TAG started on `date`
+      - docker build -t $IMAGE_REPOSITORY:$IMAGE_TAG -f ./docker/Dockerfile --build-arg NODE_ENV=$NODE_ENV .
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push $IMAGE_REPOSITORY:$IMAGE_TAG
+      - echo Generating update definition file...
+      - echo '[{"name":"backend","imageUri":"'$IMAGE_REPOSITORY':'$IMAGE_TAG'"}]' > deploy.json
+
+artifacts:
+  files:
+    - deploy.json

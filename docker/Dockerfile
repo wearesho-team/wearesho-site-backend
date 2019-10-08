@@ -1,20 +1,24 @@
-FROM node:boron
-
-ARG bot_api_key
-ARG chat_id
+FROM node:12-alpine AS build
 
 WORKDIR /usr/src/app
 
-COPY package.json .
-COPY package-lock.json .
-COPY app/env.config.template.ts ./app/env.config.ts
+COPY package.json package-lock.json /usr/src/app/
 
-RUN  sed -i "s/botApiKey: \"\"/botApiKey: \"${bot_api_key}\"/" ./app/env.config.ts
-RUN  sed -i "s/chatId: \"\"/chatId: \"${chat_id}\"/" ./app/env.config.ts
-RUN npm i
+RUN npm i --no-audit
 
-COPY . .
-RUN npm test
+COPY app/ /usr/src/app/app/
+COPY meta.json .babelrc tsconfig.json /usr/src/app/
+
+RUN ./node_modules/.bin/tsc --rootDir app --outDir build && \
+    ./node_modules/.bin/babel build --out-dir build
+
+FROM node:12-alpine
+
+WORKDIR /usr/src/app
+COPY package.json package-lock.json /usr/src/app/
+RUN npm i --production --no-audit
+COPY --from=build /usr/src/app/build/ /usr/src/app/build
+COPY meta.json /usr/src/app/
 
 EXPOSE 3000
-CMD ["npm", "start"]
+CMD ["node", "./build/server.js"]
