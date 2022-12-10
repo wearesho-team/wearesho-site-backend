@@ -18,7 +18,7 @@
     "class-validator": "^0.7.2",
     "cors": "^2.8.4",
     "counterpart": "^0.18.3",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "telebot": "^1.2.6"
   },
   "devDependencies": {
